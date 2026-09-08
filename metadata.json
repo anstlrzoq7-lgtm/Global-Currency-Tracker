@@ -1,0 +1,6 @@
+{
+  "name": "Global Currency & Multi-Converter",
+  "description": "Real-time global currency multi-converter and money tracker with multi-currency comparison, 20 languages, offline support, and custom watchlists.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

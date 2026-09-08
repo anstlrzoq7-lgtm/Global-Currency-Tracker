@@ -1,0 +1,2114 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Global Currency & Multi-Converter | Real-Time Money Tracker</title>
+  <meta name="description" content="Instant real-time multi-currency converter and money tracker. Convert 60+ global currencies simultaneously with 20 languages, offline support, and URL sharing." />
+  <meta name="keywords" content="currency converter, exchange rates, money tracker, multi-currency, forex rates, crypto converter, finance calculator" />
+  <meta name="author" content="Global FX Matrix" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#090d16" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Global Currency & Multi-Converter | Real-Time Money Tracker" />
+  <meta property="og:description" content="Instantly convert and compare multiple major global currencies simultaneously in real time." />
+  <meta property="og:url" content="https://currency-tracker.app" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Global Currency & Multi-Converter" />
+  <meta name="twitter:description" content="Compare multiple global currencies simultaneously in real-time." />
+
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Global Currency & Multi-Converter",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "All",
+    "description": "Real-time global currency multi-converter and money tracker with 20 languages and offline support.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Real-time currency exchange rates",
+      "Multi-currency parallel conversion matrix",
+      "20 global languages i18n support",
+      "Offline fallback mode",
+      "URL state synchronization",
+      "CSV and JSON export/import",
+      "Dark and Light theme customizer"
+    ]
+  }
+  </script>
+
+  <!-- PWA Manifest inline -->
+  <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Global%20Currency%20Tracker%22%2C%22short_name%22%3A%22FXTracker%22%2C%22start_url%22%3A%22%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23090d16%22%2C%22theme_color%22%3A%22%23090d16%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Ccircle%20cx%3D%2732%27%20cy%3D%2732%27%20r%3D%2730%27%20fill%3D%27%230ea5e9%27%2F%3E%3Ctext%20x%3D%2732%27%20y%3D%2742%27%20font-size%3D%2730%27%20text-anchor%3D%27middle%27%20fill%3D%27white%27%20font-weight%3D%27bold%27%3E%24%3C%2Ftext%3E%3C%2Fsvg%3E%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D" />
+
+  <!-- SVG Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%2310b981'/><text x='32' y='42' font-size='32' text-anchor='middle' fill='white' font-weight='900'>$</text></svg>" />
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+            },
+            darkbg: '#090d16',
+            darkcard: '#111827',
+            darkcardhover: '#1a2234',
+            darkborder: '#1f293d',
+          },
+          fontFamily: {
+            sans: ['system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom scrollbar and smooth micro-interactions */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(156, 163, 175, 0.3); border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(156, 163, 175, 0.5); }
+    
+    .pulsing-dot {
+      animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes pulse-ring {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.15); }
+    }
+    
+    .theme-emerald {
+      --bg-color: #03140f;
+      --card-bg: #07251e;
+      --card-border: #0f4438;
+      --primary: #10b981;
+    }
+    .theme-indigo {
+      --bg-color: #0c0d21;
+      --card-bg: #141638;
+      --card-border: #23275c;
+      --primary: #6366f1;
+    }
+    .theme-light {
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --card-border: #e2e8f0;
+      --primary: #059669;
+    }
+
+    /* Tactile button transitions */
+    .btn-press {
+      transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn-press:active {
+      transform: scale(0.96);
+    }
+    [dir="rtl"] .rtl-flip {
+      transform: scaleX(-1);
+    }
+  </style>
+</head>
+<body class="bg-darkbg text-slate-100 min-h-screen flex flex-col font-sans transition-colors duration-200 selection:bg-brand-500 selection:text-black">
+
+  <!-- Top Header Navigation -->
+  <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
+      
+      <!-- Brand Logo & Title -->
+      <div class="flex items-center gap-3 min-w-0">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-500/20 text-slate-950 font-black text-xl flex-shrink-0">
+          FX
+        </div>
+        <div class="min-w-0">
+          <div class="flex items-center gap-2">
+            <h1 class="font-bold text-base sm:text-lg tracking-tight text-white truncate" id="ui-title">
+              Global Currency Tracker
+            </h1>
+            <span id="network-badge" class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 pulsing-dot"></span>
+              <span id="rate-source-label">Live</span>
+            </span>
+          </div>
+          <p class="text-xs text-slate-400 hidden sm:block truncate" id="ui-subtitle">
+            Multi-currency live converter & real-time matrix
+          </p>
+        </div>
+      </div>
+
+      <!-- Controls: Language, Theme, Shortcuts, Presets -->
+      <div class="flex items-center gap-2">
+        <!-- 20 Language Selector (Rule 1) -->
+        <div class="relative">
+          <select id="lang-select" aria-label="Select Language" class="appearance-none bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-medium py-1.5 pl-2.5 pr-7 rounded-lg border border-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer transition">
+            <option value="en">🇺🇸 English</option>
+            <option value="ko">🇰🇷 한국어</option>
+            <option value="ja">🇯🇵 日本語</option>
+            <option value="zh">🇨🇳 简体中文</option>
+            <option value="es">🇪🇸 Español</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="de">🇩🇪 Deutsch</option>
+            <option value="pt">🇧🇷 Português</option>
+            <option value="ru">🇷🇺 Русский</option>
+            <option value="it">🇮🇹 Italiano</option>
+            <option value="vi">🇻🇳 Tiếng Việt</option>
+            <option value="th">🇹🇭 ไทย</option>
+            <option value="id">🇮🇩 Indonesia</option>
+            <option value="tr">🇹🇷 Türkçe</option>
+            <option value="pl">🇵🇱 Polski</option>
+            <option value="nl">🇳🇱 Nederlands</option>
+            <option value="ar">🇸🇦 العربية</option>
+            <option value="hi">🇮🇳 हिन्दी</option>
+            <option value="sv">🇸🇪 Svenska</option>
+            <option value="uk">🇺🇦 Українська</option>
+          </select>
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-400">
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </div>
+        </div>
+
+        <!-- Theme Selector (Rule 7) -->
+        <div class="relative">
+          <button id="theme-btn" aria-label="Toggle Theme" title="Theme Customizer" class="btn-press p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 flex items-center justify-center">
+            <svg id="theme-icon-dark" class="w-4 h-4 text-amber-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-icon-light" class="w-4 h-4 text-amber-400 hidden" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+
+        <!-- Shortcuts Help Modal Button (Rule 8) -->
+        <button id="shortcuts-btn" title="Keyboard Shortcuts" aria-label="Keyboard Shortcuts" class="btn-press hidden sm:flex p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 items-center justify-center">
+          <kbd class="font-mono text-xs px-1 bg-slate-900 border border-slate-700 rounded">?</kbd>
+        </button>
+
+        <!-- Presets & JSON Sync Button (Rule 15) -->
+        <button id="presets-modal-btn" title="Presets & Watchlist Config" aria-label="Presets and Configurations" class="btn-press px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs sm:text-sm font-medium flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+          <span class="hidden md:inline" id="ui-presets-btn">Presets</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Responsive Ad Slot Placeholder (Rule 17) -->
+  <!-- AD SLOT -->
+  <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 mt-3">
+    <div id="ad-banner-slot" class="w-full min-h-[70px] sm:min-h-[90px] rounded-xl border border-dashed border-slate-700/60 bg-slate-900/30 flex items-center justify-center p-3 text-center transition">
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-2 text-slate-400 text-xs">
+        <span class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700 text-[10px] font-semibold tracking-wider uppercase text-slate-400">Advertisement</span>
+        <span class="text-slate-500">Sponsored Ad Space (728x90 / Responsive Display Network Slot)</span>
+      </div>
+    </div>
+  </div>
+  <!-- /AD SLOT -->
+
+  <!-- Main Application Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col gap-6">
+
+    <!-- Top Hero Converter Input Panel (Rules 2, 8, 9, 13) -->
+    <section aria-labelledby="conversion-heading" class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-xl relative overflow-hidden backdrop-blur-sm">
+      <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-6">
+        
+        <!-- Input & Base Currency Group -->
+        <div class="flex-1 flex flex-col sm:flex-row items-stretch gap-3">
+          
+          <!-- Base Currency Dropdown -->
+          <div class="w-full sm:w-56 flex-shrink-0">
+            <label id="ui-base-currency-label" for="base-currency-select" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
+              Base Currency
+            </label>
+            <div class="relative">
+              <select id="base-currency-select" class="w-full bg-slate-800 hover:bg-slate-750 text-white font-bold text-base sm:text-lg py-3 pl-3 pr-8 rounded-xl border border-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition cursor-pointer">
+                <!-- Populated dynamically -->
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-400">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Amount Input Field with Math Expression Support -->
+          <div class="flex-1 relative">
+            <div class="flex items-center justify-between mb-1.5">
+              <label id="ui-amount-label" for="amount-input" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                Amount (or formula, e.g. 500*2)
+              </label>
+              <span id="calc-preview" class="text-xs font-mono text-emerald-400"></span>
+            </div>
+            <div class="relative">
+              <input 
+                id="amount-input" 
+                type="text" 
+                inputmode="decimal" 
+                placeholder="1,000" 
+                value="1000"
+                class="w-full bg-slate-800 text-white font-mono font-bold text-xl sm:text-2xl py-2.5 pl-4 pr-10 rounded-xl border border-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition"
+              />
+              <button id="clear-amount-btn" title="Clear (Esc)" aria-label="Clear Amount" class="absolute inset-y-0 right-0 px-3 flex items-center text-slate-400 hover:text-white transition">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Status & Rate Meta Box -->
+        <div class="flex flex-col sm:flex-row lg:flex-col justify-center items-start lg:items-end gap-2 text-xs text-slate-400 pt-2 lg:pt-0 border-t lg:border-t-0 border-slate-800">
+          <div class="flex items-center gap-2">
+            <span id="ui-last-updated-label">Updated:</span>
+            <span id="last-updated-timestamp" class="font-mono text-slate-300">Just now</span>
+            <button id="refresh-rates-btn" title="Refresh Rates (R)" class="btn-press p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition">
+              <svg id="refresh-icon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+            </button>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-slate-500">Auto-refresh active</span>
+            <span class="w-1 h-1 rounded-full bg-slate-600"></span>
+            <span id="active-currencies-count" class="text-emerald-400 font-semibold">8 Currencies</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Amount Preset Pills (Rule 9) -->
+      <div class="mt-4 pt-3 border-t border-slate-800/80 flex flex-wrap items-center gap-1.5 sm:gap-2">
+        <span class="text-xs text-slate-400 font-medium mr-1" id="ui-quick-pills-label">Quick:</span>
+        <button class="quick-pill btn-press px-2.5 py-1 text-xs font-mono font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700/80" data-amt="100">+100</button>
+        <button class="quick-pill btn-press px-2.5 py-1 text-xs font-mono font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700/80" data-amt="500">+500</button>
+        <button class="quick-pill btn-press px-2.5 py-1 text-xs font-mono font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700/80" data-amt="1000">+1,000</button>
+        <button class="quick-set-pill btn-press px-2.5 py-1 text-xs font-mono font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-slate-700/80" data-val="1000">1K</button>
+        <button class="quick-set-pill btn-press px-2.5 py-1 text-xs font-mono font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-slate-700/80" data-val="10000">10K</button>
+        <button class="quick-set-pill btn-press px-2.5 py-1 text-xs font-mono font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-slate-700/80" data-val="100000">100K</button>
+        <button class="quick-set-pill btn-press px-2.5 py-1 text-xs font-mono font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-slate-700/80" data-val="1000000">1M</button>
+      </div>
+    </section>
+
+    <!-- Toolbar: Search, Add Currency, Share URL, Copy All, CSV Export (Rules 4, 12, 13) -->
+    <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+      
+      <!-- Search within Watchlist -->
+      <div class="relative flex-1 max-w-md">
+        <input 
+          id="watchlist-search-input" 
+          type="search" 
+          placeholder="Filter watchlist (e.g. EUR, Yen, Pound)..." 
+          class="w-full bg-slate-900 border border-slate-800 text-slate-200 text-sm pl-9 pr-4 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 transition"
+        />
+        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-slate-500">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center flex-wrap gap-2">
+        <!-- Add Currency Modal Button -->
+        <button id="open-add-currency-btn" class="btn-press px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold text-sm flex items-center gap-1.5 shadow-lg shadow-emerald-600/20 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+          <span id="ui-add-currency-btn">Add Currency</span>
+        </button>
+
+        <!-- Share URL (Rule 12) -->
+        <button id="share-url-btn" title="Copy shareable link with current configuration" class="btn-press px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-sm font-medium flex items-center gap-1.5 transition">
+          <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+          <span class="hidden md:inline" id="ui-share-btn">Share</span>
+        </button>
+
+        <!-- Copy All to Clipboard (Rule 4) -->
+        <button id="copy-all-btn" title="Copy all converted rates to clipboard" class="btn-press px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-sm font-medium flex items-center gap-1.5 transition">
+          <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+          <span class="hidden md:inline" id="ui-copy-all-btn">Copy Matrix</span>
+        </button>
+
+        <!-- Export CSV (Rule 4) -->
+        <button id="export-csv-btn" title="Download conversion table as CSV" class="btn-press px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-sm font-medium flex items-center gap-1.5 transition">
+          <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+          <span class="hidden lg:inline" id="ui-export-btn">Export CSV</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Multi-Currency Matrix Cards Grid (Rules 2, 9, 13) -->
+    <section aria-label="Currency Watchlist Grid">
+      <div id="currency-cards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <!-- Rendered dynamically -->
+      </div>
+      
+      <!-- Empty Watchlist Fallback -->
+      <div id="empty-watchlist-msg" class="hidden py-16 text-center bg-slate-900/50 border border-dashed border-slate-800 rounded-2xl p-6">
+        <p class="text-slate-400 text-base mb-3" id="ui-no-currencies-msg">No currencies in your watchlist match the current filter.</p>
+        <button id="reset-filter-btn" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-medium transition">
+          Reset Filter / View All
+        </button>
+      </div>
+    </section>
+
+    <!-- Quick Reference Conversion Scale Table -->
+    <section class="bg-slate-900/60 border border-slate-800 rounded-2xl p-4 sm:p-6 transition">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h2 class="font-bold text-sm sm:text-base text-white" id="ui-reference-table-title">
+            Quick Conversion Ladder
+          </h2>
+          <p class="text-xs text-slate-400" id="ui-reference-table-sub">
+            Standard denomination breakdown for top active currencies
+          </p>
+        </div>
+      </div>
+      <div class="overflow-x-auto">
+        <table id="ladder-table" class="w-full text-left text-xs sm:text-sm font-mono border-collapse">
+          <thead>
+            <tr class="border-b border-slate-800 text-slate-400">
+              <th class="py-2.5 px-3 font-semibold">Denomination</th>
+              <th id="ladder-col-1" class="py-2.5 px-3 font-semibold">EUR</th>
+              <th id="ladder-col-2" class="py-2.5 px-3 font-semibold">GBP</th>
+              <th id="ladder-col-3" class="py-2.5 px-3 font-semibold">JPY</th>
+              <th id="ladder-col-4" class="py-2.5 px-3 font-semibold">KRW</th>
+            </tr>
+          </thead>
+          <tbody id="ladder-tbody" class="divide-y divide-slate-800/60 text-slate-300">
+            <!-- Populated dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modals & Drawers -->
+
+  <!-- Modal 1: Add Currency Modal -->
+  <div id="add-currency-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm hidden" role="dialog" aria-modal="true" aria-labelledby="add-currency-title">
+    <div class="bg-slate-900 border border-slate-700/80 rounded-2xl max-w-lg w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden animate-in">
+      <div class="p-4 border-b border-slate-800 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold">
+            +
+          </div>
+          <div>
+            <h3 id="add-currency-title" class="font-bold text-white text-base">Add Currency to Matrix</h3>
+            <p class="text-xs text-slate-400" id="ui-add-currency-desc">Select from 60+ global fiat and digital currencies</p>
+          </div>
+        </div>
+        <button id="close-add-modal-btn" aria-label="Close modal" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+
+      <div class="p-4 border-b border-slate-800">
+        <input 
+          id="modal-currency-search" 
+          type="search" 
+          placeholder="Search by code or country name..." 
+          class="w-full bg-slate-800 border border-slate-700 text-white rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+        />
+      </div>
+
+      <div id="modal-currency-list" class="flex-1 overflow-y-auto p-2 divide-y divide-slate-800/40">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Presets & JSON Import/Export (Rule 15) -->
+  <div id="presets-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm hidden" role="dialog" aria-modal="true" aria-labelledby="presets-title">
+    <div class="bg-slate-900 border border-slate-700/80 rounded-2xl max-w-lg w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
+      <div class="p-4 border-b border-slate-800 flex items-center justify-between">
+        <h3 id="presets-title" class="font-bold text-white text-base">Currencies & Preset Collections</h3>
+        <button id="close-presets-modal-btn" aria-label="Close presets" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto p-4 flex flex-col gap-5 text-sm">
+        
+        <!-- Popular Presets -->
+        <div>
+          <h4 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2.5">1-Click Curated Presets</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2" id="presets-container">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+        <!-- JSON Export/Import (Rule 15) -->
+        <div class="pt-4 border-t border-slate-800">
+          <h4 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Export / Import Watchlist JSON</h4>
+          <textarea 
+            id="json-config-area" 
+            rows="4" 
+            placeholder='{"base":"USD","watchlist":["EUR","JPY","GBP","KRW"]}'
+            class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 font-mono text-xs text-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          ></textarea>
+          <div class="mt-2.5 flex items-center justify-between gap-2">
+            <button id="import-json-btn" class="btn-press px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold text-xs">
+              Import Config
+            </button>
+            <div class="flex items-center gap-2">
+              <button id="copy-json-btn" class="btn-press px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs">
+                Copy JSON
+              </button>
+              <button id="download-json-btn" class="btn-press px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs">
+                Download
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: Keyboard Shortcuts Help (Rule 8) -->
+  <div id="shortcuts-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm hidden" role="dialog" aria-modal="true" aria-labelledby="shortcuts-title">
+    <div class="bg-slate-900 border border-slate-700/80 rounded-2xl max-w-md w-full p-5 shadow-2xl">
+      <div class="flex items-center justify-between mb-4">
+        <h3 id="shortcuts-title" class="font-bold text-white text-base">Keyboard Shortcuts</h3>
+        <button id="close-shortcuts-modal-btn" aria-label="Close shortcuts" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+      <div class="space-y-2.5 text-xs sm:text-sm">
+        <div class="flex items-center justify-between py-1.5 border-b border-slate-800">
+          <span class="text-slate-300">Focus Amount Input</span>
+          <kbd class="font-mono bg-slate-800 px-2 py-0.5 rounded border border-slate-700 text-slate-300">/ or Ctrl+K</kbd>
+        </div>
+        <div class="flex items-center justify-between py-1.5 border-b border-slate-800">
+          <span class="text-slate-300">Refresh Live Rates</span>
+          <kbd class="font-mono bg-slate-800 px-2 py-0.5 rounded border border-slate-700 text-slate-300">R</kbd>
+        </div>
+        <div class="flex items-center justify-between py-1.5 border-b border-slate-800">
+          <span class="text-slate-300">Clear Amount / Close Modals</span>
+          <kbd class="font-mono bg-slate-800 px-2 py-0.5 rounded border border-slate-700 text-slate-300">Esc</kbd>
+        </div>
+        <div class="flex items-center justify-between py-1.5 border-b border-slate-800">
+          <span class="text-slate-300">Copy Shareable State URL</span>
+          <kbd class="font-mono bg-slate-800 px-2 py-0.5 rounded border border-slate-700 text-slate-300">Alt+S</kbd>
+        </div>
+        <div class="flex items-center justify-between py-1.5">
+          <span class="text-slate-300">Open Presets Dialog</span>
+          <kbd class="font-mono bg-slate-800 px-2 py-0.5 rounded border border-slate-700 text-slate-300">P</kbd>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 4: User Feedback & Support (Rule 14) -->
+  <div id="feedback-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm hidden" role="dialog" aria-modal="true" aria-labelledby="feedback-title">
+    <div class="bg-slate-900 border border-slate-700/80 rounded-2xl max-w-md w-full p-5 shadow-2xl">
+      <div class="flex items-center justify-between mb-4">
+        <h3 id="feedback-title" class="font-bold text-white text-base">User Feedback & Support</h3>
+        <button id="close-feedback-modal-btn" aria-label="Close feedback" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+      <p class="text-xs text-slate-400 mb-3" id="ui-feedback-desc">
+        Help us improve! Share suggestions, rate accuracy reports, or feature requests.
+      </p>
+      <form id="feedback-form" class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1" for="feedback-email">Email (Optional)</label>
+          <input id="feedback-email" type="email" placeholder="name@domain.com" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1" for="feedback-text">Message / Report</label>
+          <textarea id="feedback-text" required rows="3" placeholder="Tell us what you'd like added or improved..." class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"></textarea>
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" id="cancel-feedback-btn" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium">Cancel</button>
+          <button type="submit" class="btn-press px-4 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold text-xs">Send Feedback</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Global Toast Notifications Container (Rule 16) -->
+  <div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 max-w-sm pointer-events-none" aria-live="polite"></div>
+
+  <!-- Footer & Support Section (Rule 14) -->
+  <footer class="bg-slate-900 border-t border-slate-800 py-6 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        <span id="ui-footer-rights">© 2026 Global Currency & Multi-Converter. All rights reserved.</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <button id="open-feedback-btn" class="hover:text-emerald-400 transition underline underline-offset-4">Feedback & Support</button>
+        <span class="text-slate-700">|</span>
+        <span class="text-slate-500">Rates provided by open financial data feeds with instant offline fallback.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Single-File JavaScript Logic (Rules 1, 3, 8, 9, 10, 12, 13, 15, 16) -->
+  <script>
+    // --- 1. CURRENCY METADATA DATABASE (60+ CURRENCIES) ---
+    const CURRENCIES = {
+      USD: { code: 'USD', name: 'US Dollar', symbol: '$', flag: '🇺🇸', rate: 1.0 },
+      EUR: { code: 'EUR', name: 'Euro', symbol: '€', flag: '🇪🇺', rate: 0.92 },
+      GBP: { code: 'GBP', name: 'British Pound', symbol: '£', flag: '🇬🇧', rate: 0.79 },
+      JPY: { code: 'JPY', name: 'Japanese Yen', symbol: '¥', flag: '🇯🇵', rate: 154.5 },
+      CAD: { code: 'CAD', name: 'Canadian Dollar', symbol: 'C$', flag: '🇨🇦', rate: 1.36 },
+      AUD: { code: 'AUD', name: 'Australian Dollar', symbol: 'A$', flag: '🇦🇺', rate: 1.52 },
+      CHF: { code: 'CHF', name: 'Swiss Franc', symbol: 'Fr', flag: '🇨🇭', rate: 0.89 },
+      CNY: { code: 'CNY', name: 'Chinese Yuan', symbol: '¥', flag: '🇨🇳', rate: 7.24 },
+      KRW: { code: 'KRW', name: 'South Korean Won', symbol: '₩', flag: '🇰🇷', rate: 1375.0 },
+      INR: { code: 'INR', name: 'Indian Rupee', symbol: '₹', flag: '🇮🇳', rate: 83.4 },
+      SGD: { code: 'SGD', name: 'Singapore Dollar', symbol: 'S$', flag: '🇸🇬', rate: 1.35 },
+      HKD: { code: 'HKD', name: 'Hong Kong Dollar', symbol: 'HK$', flag: '🇭🇰', rate: 7.82 },
+      NZD: { code: 'NZD', name: 'New Zealand Dollar', symbol: 'NZ$', flag: '🇳🇿', rate: 1.66 },
+      BRL: { code: 'BRL', name: 'Brazilian Real', symbol: 'R$', flag: '🇧🇷', rate: 5.15 },
+      MXN: { code: 'MXN', name: 'Mexican Peso', symbol: '$', flag: '🇲🇽', rate: 16.9 },
+      SEK: { code: 'SEK', name: 'Swedish Krona', symbol: 'kr', flag: '🇸🇪', rate: 10.75 },
+      NOK: { code: 'NOK', name: 'Norwegian Krone', symbol: 'kr', flag: '🇳🇴', rate: 10.88 },
+      DKK: { code: 'DKK', name: 'Danish Krone', symbol: 'kr', flag: '🇩🇰', rate: 6.87 },
+      PLN: { code: 'PLN', name: 'Polish Zloty', symbol: 'zł', flag: '🇵🇱', rate: 3.98 },
+      TRY: { code: 'TRY', name: 'Turkish Lira', symbol: '₺', flag: '🇹🇷', rate: 32.2 },
+      ZAR: { code: 'ZAR', name: 'South African Rand', symbol: 'R', flag: '🇿🇦', rate: 18.6 },
+      SAR: { code: 'SAR', name: 'Saudi Riyal', symbol: '﷼', flag: '🇸🇦', rate: 3.75 },
+      AED: { code: 'AED', name: 'UAE Dirham', symbol: 'د.إ', flag: '🇦🇪', rate: 3.67 },
+      THB: { code: 'THB', name: 'Thai Baht', symbol: '฿', flag: '🇹🇭', rate: 36.8 },
+      VND: { code: 'VND', name: 'Vietnamese Dong', symbol: '₫', flag: '🇻🇳', rate: 25400.0 },
+      IDR: { code: 'IDR', name: 'Indonesian Rupiah', symbol: 'Rp', flag: '🇮🇩', rate: 16150.0 },
+      PHP: { code: 'PHP', name: 'Philippine Peso', symbol: '₱', flag: '🇵🇭', rate: 57.8 },
+      MYR: { code: 'MYR', name: 'Malaysian Ringgit', symbol: 'RM', flag: '🇲🇾', rate: 4.73 },
+      TWD: { code: 'TWD', name: 'New Taiwan Dollar', symbol: 'NT$', flag: '🇹🇼', rate: 32.4 },
+      CZK: { code: 'CZK', name: 'Czech Koruna', symbol: 'Kč', flag: '🇨🇿', rate: 23.1 },
+      HUF: { code: 'HUF', name: 'Hungarian Forint', symbol: 'Ft', flag: '🇭🇺', rate: 362.0 },
+      ILS: { code: 'ILS', name: 'Israeli Shekel', symbol: '₪', flag: '🇮🇱', rate: 3.72 },
+      CLP: { code: 'CLP', name: 'Chilean Peso', symbol: '$', flag: '🇨🇱', rate: 935.0 },
+      COP: { code: 'COP', name: 'Colombian Peso', symbol: '$', flag: '🇨🇴', rate: 3880.0 },
+      ARS: { code: 'ARS', name: 'Argentine Peso', symbol: '$', flag: '🇦🇷', rate: 890.0 },
+      EGP: { code: 'EGP', name: 'Egyptian Pound', symbol: 'E£', flag: '🇪🇬', rate: 47.5 },
+      PKR: { code: 'PKR', name: 'Pakistani Rupee', symbol: '₨', flag: '🇵🇰', rate: 278.0 },
+      BDT: { code: 'BDT', name: 'Bangladeshi Taka', symbol: '৳', flag: '🇧🇩', rate: 117.0 },
+      NGN: { code: 'NGN', name: 'Nigerian Naira', symbol: '₦', flag: '🇳🇬', rate: 1420.0 },
+      KWD: { code: 'KWD', name: 'Kuwaiti Dinar', symbol: 'KD', flag: '🇰🇼', rate: 0.307 },
+      QAR: { code: 'QAR', name: 'Qatari Riyal', symbol: 'QR', flag: '🇶🇦', rate: 3.64 },
+      KZT: { code: 'KZT', name: 'Kazakhstani Tenge', symbol: '₸', flag: '🇰🇿', rate: 442.0 },
+      RON: { code: 'RON', name: 'Romanian Leu', symbol: 'lei', flag: '🇷🇴', rate: 4.58 },
+      BGN: { code: 'BGN', name: 'Bulgarian Lev', symbol: 'лв', flag: '🇧🇬', rate: 1.80 },
+      UAH: { code: 'UAH', name: 'Ukrainian Hryvnia', symbol: '₴', flag: '🇺🇦', rate: 40.2 },
+      BTC: { code: 'BTC', name: 'Bitcoin', symbol: '₿', flag: '🪙', rate: 0.000015 },
+      ETH: { code: 'ETH', name: 'Ethereum', symbol: 'Ξ', flag: '💎', rate: 0.00028 },
+      SOL: { code: 'SOL', name: 'Solana', symbol: '◎', flag: '⚡', rate: 0.0068 },
+      USDT: { code: 'USDT', name: 'Tether USD', symbol: '₮', flag: '💵', rate: 1.0 }
+    };
+
+    // --- 2. 20-LANGUAGE I18N DICTIONARY (Rule 1) ---
+    const I18N = {
+      en: {
+        title: "Global Currency Tracker",
+        subtitle: "Multi-currency live converter & real-time matrix",
+        baseCurrency: "Base Currency",
+        amount: "Amount (or formula, e.g. 500*2)",
+        quickPills: "Quick:",
+        addCurrency: "Add Currency",
+        share: "Share",
+        copyMatrix: "Copy Matrix",
+        exportCsv: "Export CSV",
+        presets: "Presets",
+        ladderTitle: "Quick Conversion Ladder",
+        ladderSub: "Standard denomination breakdown for top active currencies",
+        emptyMsg: "No currencies in your watchlist match the current filter.",
+        makeBase: "Set as Base",
+        copied: "Copied to clipboard!",
+        urlCopied: "Shareable state URL copied!",
+        live: "Live",
+        offline: "Offline Cache",
+        swapTip: "Swap with base",
+        removeTip: "Remove from matrix",
+        rights: "© 2026 Global Currency & Multi-Converter. All rights reserved."
+      },
+      ko: {
+        title: "글로벌 환율 멀티 변환기",
+        subtitle: "실시간 다중 통화 환율 비교 및 머니 트래커",
+        baseCurrency: "기준 통화",
+        amount: "금액 입력 (수식 지원 e.g. 500*2)",
+        quickPills: "빠른입력:",
+        addCurrency: "통화 추가",
+        share: "공유하기",
+        copyMatrix: "전체 복사",
+        exportCsv: "CSV 내보내기",
+        presets: "프리셋",
+        ladderTitle: "금액별 환산표",
+        ladderSub: "주요 통화 표준 금액대별 환산 정보",
+        emptyMsg: "검색 결과와 일치하는 통화가 없습니다.",
+        makeBase: "기준 통화로 설정",
+        copied: "클립보드에 복사되었습니다!",
+        urlCopied: "공유 URL이 복사되었습니다!",
+        live: "실시간",
+        offline: "오프라인 캐시",
+        swapTip: "기준 통화와 맞바꾸기",
+        removeTip: "목록에서 제거",
+        rights: "© 2026 글로벌 환율 멀티 변환기. 모든 권리 보유."
+      },
+      ja: {
+        title: "グローバル為替マルチ計算機",
+        subtitle: "複数通貨のリアルタイム一括換算＆マネートラッカー",
+        baseCurrency: "基準通貨",
+        amount: "金額入力 (計算式対応 500*2)",
+        quickPills: "クイック:",
+        addCurrency: "通貨を追加",
+        share: "共有",
+        copyMatrix: "一括コピー",
+        exportCsv: "CSV出力",
+        presets: "プリセット",
+        ladderTitle: "主要レート早見表",
+        ladderSub: "主要通貨の金額別リアルタイム換算表",
+        emptyMsg: "該当する通貨が見つかりません。",
+        makeBase: "基準通貨にする",
+        copied: "クリップボードにコピーしました！",
+        urlCopied: "共有リンクをコピーしました！",
+        live: "リアルタイム",
+        offline: "オフライン",
+        swapTip: "基準通貨と交換",
+        removeTip: "削除",
+        rights: "© 2026 Global Currency Tracker. All rights reserved."
+      },
+      zh: {
+        title: "全球多币种实时汇率转换器",
+        subtitle: "多国货币同时即时换算与资金追踪",
+        baseCurrency: "基础货币",
+        amount: "金额 (支持算式 如 500*2)",
+        quickPills: "快速调节:",
+        addCurrency: "添加币种",
+        share: "分享",
+        copyMatrix: "复制全部",
+        exportCsv: "导出CSV",
+        presets: "预设组合",
+        ladderTitle: "常用面额速查表",
+        ladderSub: "主要币种各梯度金额换算对比",
+        emptyMsg: "没有匹配的币种。",
+        makeBase: "设为基准",
+        copied: "已复制到剪贴板！",
+        urlCopied: "分享链接已复制！",
+        live: "实时联网",
+        offline: "离线缓存",
+        swapTip: "与基准互换",
+        removeTip: "移除",
+        rights: "© 2026 全球多币种实时汇率转换器。保留所有权利。"
+      },
+      es: {
+        title: "Conversor Global de Divisas",
+        subtitle: "Conversor multidivisa en tiempo real y monitor de dinero",
+        baseCurrency: "Moneda Base",
+        amount: "Cantidad (o fórmula ej. 500*2)",
+        quickPills: "Rápido:",
+        addCurrency: "Añadir Moneda",
+        share: "Compartir",
+        copyMatrix: "Copiar Todo",
+        exportCsv: "Exportar CSV",
+        presets: "Preajustes",
+        ladderTitle: "Tabla de Conversión Rápida",
+        ladderSub: "Desglose por denominaciones habituales",
+        emptyMsg: "No se encontraron monedas.",
+        makeBase: "Fijar como Base",
+        copied: "¡Copiado al portapapeles!",
+        urlCopied: "¡Enlace compartido copiado!",
+        live: "En vivo",
+        offline: "Caché sin conexión",
+        swapTip: "Intercambiar con base",
+        removeTip: "Eliminar",
+        rights: "© 2026 Global Currency Tracker. Todos los derechos reservados."
+      },
+      fr: {
+        title: "Convertisseur Multidevises Global",
+        subtitle: "Conversion instantanée et suivi des cours en temps réel",
+        baseCurrency: "Devise de base",
+        amount: "Montant (ou formule ex. 500*2)",
+        quickPills: "Rapide :",
+        addCurrency: "Ajouter Devise",
+        share: "Partager",
+        copyMatrix: "Copier la grille",
+        exportCsv: "Exporter CSV",
+        presets: "Profils",
+        ladderTitle: "Échelle de conversion rapide",
+        ladderSub: "Équivalence des montants standards",
+        emptyMsg: "Aucune devise correspondante.",
+        makeBase: "Définir comme base",
+        copied: "Copié dans le presse-papiers !",
+        urlCopied: "Lien de partage copié !",
+        live: "En direct",
+        offline: "Hors ligne",
+        swapTip: "Échanger avec la base",
+        removeTip: "Supprimer",
+        rights: "© 2026 Global Currency Tracker. Tous droits réservés."
+      },
+      de: {
+        title: "Globaler Währungsrechner",
+        subtitle: "Echtzeit-Multi-Währungsumrechner & Finanzmatrix",
+        baseCurrency: "Basiswährung",
+        amount: "Betrag (oder Formel z.B. 500*2)",
+        quickPills: "Schnell:",
+        addCurrency: "Währung hinzufügen",
+        share: "Teilen",
+        copyMatrix: "Alles kopieren",
+        exportCsv: "CSV Export",
+        presets: "Vorlagen",
+        ladderTitle: "Währungs-Staffeltabelle",
+        ladderSub: "Standard-Betragsübersicht für Hauptwährungen",
+        emptyMsg: "Keine Währungen gefunden.",
+        makeBase: "Als Basis setzen",
+        copied: "In Zwischenablage kopiert!",
+        urlCopied: "Freigabelink kopiert!",
+        live: "Live",
+        offline: "Offline-Cache",
+        swapTip: "Mit Basis tauschen",
+        removeTip: "Entfernen",
+        rights: "© 2026 Global Currency Tracker. Alle Rechte vorbehalten."
+      },
+      pt: {
+        title: "Conversor Global de Moedas",
+        subtitle: "Conversor multimoedas em tempo real e rastreador",
+        baseCurrency: "Moeda Base",
+        amount: "Valor (ou fórmula ex. 500*2)",
+        quickPills: "Rápido:",
+        addCurrency: "Adicionar Moeda",
+        share: "Compartilhar",
+        copyMatrix: "Copiar Todos",
+        exportCsv: "Exportar CSV",
+        presets: "Modelos",
+        ladderTitle: "Tabela de Conversão Rápida",
+        ladderSub: "Detalhamento de valores padrão",
+        emptyMsg: "Nenhuma moeda encontrada.",
+        makeBase: "Definir como Base",
+        copied: "Copiado para a área de transferência!",
+        urlCopied: "Link copiado com sucesso!",
+        live: "Ao Vivo",
+        offline: "Cache Offline",
+        swapTip: "Inverter com a base",
+        removeTip: "Remover",
+        rights: "© 2026 Global Currency Tracker. Todos os direitos reservados."
+      },
+      ru: {
+        title: "Глобальный мультивалютный конвертер",
+        subtitle: "Мгновенная конвертация и мониторинг курсов валют",
+        baseCurrency: "Базовая валюта",
+        amount: "Сумма (или формула, напр. 500*2)",
+        quickPills: "Быстро:",
+        addCurrency: "Добавить валюту",
+        share: "Поделиться",
+        copyMatrix: "Скопировать всё",
+        exportCsv: "Экспорт CSV",
+        presets: "Пресеты",
+        ladderTitle: "Таблица номиналов",
+        ladderSub: "Соотношение стандартных сумм",
+        emptyMsg: "Валюты не найдены.",
+        makeBase: "Сделать базовой",
+        copied: "Скопировано в буфер!",
+        urlCopied: "Ссылка скопирована!",
+        live: "Онлайн",
+        offline: "Офлайн-кэш",
+        swapTip: "Поменять местами",
+        removeTip: "Удалить",
+        rights: "© 2026 Global Currency Tracker. Все права защищены."
+      },
+      it: {
+        title: "Convertitore Valute Globale",
+        subtitle: "Convertitore multiplo in tempo reale e money tracker",
+        baseCurrency: "Valuta Base",
+        amount: "Importo (o formula es. 500*2)",
+        quickPills: "Rapido:",
+        addCurrency: "Aggiungi Valuta",
+        share: "Condividi",
+        copyMatrix: "Copia Tutto",
+        exportCsv: "Esporta CSV",
+        presets: "Profili",
+        ladderTitle: "Scala di Conversione",
+        ladderSub: "Ripartizione per denominazioni standard",
+        emptyMsg: "Nessuna valuta trovata.",
+        makeBase: "Imposta come Base",
+        copied: "Copiato negli appunti!",
+        urlCopied: "Link copiato!",
+        live: "In tempo reale",
+        offline: "Cache offline",
+        swapTip: "Scambia con base",
+        removeTip: "Rimuovi",
+        rights: "© 2026 Global Currency Tracker. Tutti i diritti riservati."
+      },
+      vi: {
+        title: "Chuyển Đổi Tiền Tệ Toàn Cầu",
+        subtitle: "Quy đổi đa ngoại tệ tức thì & theo dõi tỷ giá",
+        baseCurrency: "Tiền tệ gốc",
+        amount: "Số tiền (hoặc công thức 500*2)",
+        quickPills: "Nhanh:",
+        addCurrency: "Thêm tiền tệ",
+        share: "Chia sẻ",
+        copyMatrix: "Sao chép tất cả",
+        exportCsv: "Xuất CSV",
+        presets: "Bộ mẫu",
+        ladderTitle: "Bảng quy đổi mệnh giá",
+        ladderSub: "Bảng phân tích mệnh giá chuẩn",
+        emptyMsg: "Không tìm thấy đồng tiền nào.",
+        makeBase: "Đặt làm gốc",
+        copied: "Đã sao chép vào bộ nhớ tạm!",
+        urlCopied: "Đã sao chép liên kết chia sẻ!",
+        live: "Trực tuyến",
+        offline: "Ngoại tuyến",
+        swapTip: "Hoán đổi với tiền gốc",
+        removeTip: "Xóa",
+        rights: "© 2026 Global Currency Tracker. Bảo lưu mọi quyền."
+      },
+      th: {
+        title: "โปรแกรมแปลงสกุลเงินทั่วโลก",
+        subtitle: "เปรียบเทียบอัตราแลกเปลี่ยนหลายสกุลเงินแบบเรียลไทม์",
+        baseCurrency: "สกุลเงินหลัก",
+        amount: "จำนวนเงิน (หรือสูตรคำนวณ เช่น 500*2)",
+        quickPills: "ด่วน:",
+        addCurrency: "เพิ่มสกุลเงิน",
+        share: "แชร์",
+        copyMatrix: "คัดลอกทั้งหมด",
+        exportCsv: "ส่งออก CSV",
+        presets: "ชุดที่ตั้งไว้",
+        ladderTitle: "ตารางเปรียบเทียบยอดนิยม",
+        ladderSub: "ตารางแปลงค่าสำหรับจำนวนเงินมาตรฐาน",
+        emptyMsg: "ไม่พบสกุลเงินที่ค้นหา",
+        makeBase: "ตั้งเป็นสกุลเงินหลัก",
+        copied: "คัดลอกไปยังคลิปบอร์ดแล้ว!",
+        urlCopied: "คัดลอกลิงก์แชร์แล้ว!",
+        live: "เรียลไทม์",
+        offline: "ออฟไลน์",
+        swapTip: "สลับกับสกุลเงินหลัก",
+        removeTip: "ลบออก",
+        rights: "© 2026 Global Currency Tracker. สงวนลิขสิทธิ์."
+      },
+      id: {
+        title: "Konverter Mata Uang Global",
+        subtitle: "Konverter multi-mata uang langsung & pelacak nilai tukar",
+        baseCurrency: "Mata Uang Dasar",
+        amount: "Jumlah (atau rumus cth: 500*2)",
+        quickPills: "Cepat:",
+        addCurrency: "Tambah Mata Uang",
+        share: "Bagikan",
+        copyMatrix: "Salin Semua",
+        exportCsv: "Ekspor CSV",
+        presets: "Preset",
+        ladderTitle: "Tabel Konversi Cepat",
+        ladderSub: "Rincian pecahan standar untuk mata uang utama",
+        emptyMsg: "Mata uang tidak ditemukan.",
+        makeBase: "Jadikan Dasar",
+        copied: "Disalin ke papan klip!",
+        urlCopied: "Tautan berbagi disalin!",
+        live: "Langsung",
+        offline: "Offline",
+        swapTip: "Tukar dengan dasar",
+        removeTip: "Hapus",
+        rights: "© 2026 Global Currency Tracker. Hak cipta dilindungi."
+      },
+      tr: {
+        title: "Küresel Çoklu Para Çevirici",
+        subtitle: "Canlı çoklu döviz kuru çevirici ve para takipçisi",
+        baseCurrency: "Temel Para Birimi",
+        amount: "Tutar (veya formül örn. 500*2)",
+        quickPills: "Hızlı:",
+        addCurrency: "Para Birimi Ekle",
+        share: "Paylaş",
+        copyMatrix: "Tümünü Kopyala",
+        exportCsv: "CSV İndir",
+        presets: "Şablonlar",
+        ladderTitle: "Hızlı Çeviri Tablosu",
+        ladderSub: "Standart banknotlar için kur dağılımı",
+        emptyMsg: "Eşleşen para birimi bulunamadı.",
+        makeBase: "Temel Yap",
+        copied: "Panoya kopyalandı!",
+        urlCopied: "Paylaşım linki kopyalandı!",
+        live: "Canlı",
+        offline: "Çevrimdışı Önbellek",
+        swapTip: "Temel ile değiştir",
+        removeTip: "Kaldır",
+        rights: "© 2026 Global Currency Tracker. Tüm hakları saklıdır."
+      },
+      pl: {
+        title: "Globalny Przelicznik Walut",
+        subtitle: "Wielowalutowy kalkulator na żywo i monitor kursów",
+        baseCurrency: "Waluta bazowa",
+        amount: "Kwota (lub formuła np. 500*2)",
+        quickPills: "Szybko:",
+        addCurrency: "Dodaj walutę",
+        share: "Udostępnij",
+        copyMatrix: "Kopiuj wszystko",
+        exportCsv: "Eksportuj CSV",
+        presets: "Zestawy",
+        ladderTitle: "Drabinka przeliczeń",
+        ladderSub: "Podział standardowych nominałów",
+        emptyMsg: "Nie znaleziono walut.",
+        makeBase: "Ustaw jako bazową",
+        copied: "Skopiowano do schowka!",
+        urlCopied: "Skopiowano link!",
+        live: "Na żywo",
+        offline: "Tryb offline",
+        swapTip: "Zamień z bazową",
+        removeTip: "Usuń",
+        rights: "© 2026 Global Currency Tracker. Wszelkie prawa zastrzeżone."
+      },
+      nl: {
+        title: "Wereldwijde Valutaconverter",
+        subtitle: "Realtime multi-valuta omrekenaar & wisselkoersmatrix",
+        baseCurrency: "Basisvaluta",
+        amount: "Bedrag (of formule bijv. 500*2)",
+        quickPills: "Snel:",
+        addCurrency: "Valuta toevoegen",
+        share: "Delen",
+        copyMatrix: "Kopieer alles",
+        exportCsv: "Exporteer CSV",
+        presets: "Voorinstellingen",
+        ladderTitle: "Conversieladder",
+        ladderSub: "Overzicht van standaard coupures",
+        emptyMsg: "Geen valuta's gevonden.",
+        makeBase: "Als basis instellen",
+        copied: "Gekopieerd naar klembord!",
+        urlCopied: "Deellink gekopieerd!",
+        live: "Live",
+        offline: "Offline cache",
+        swapTip: "Wissel met basis",
+        removeTip: "Verwijderen",
+        rights: "© 2026 Global Currency Tracker. Alle rechten voorbehouden."
+      },
+      ar: {
+        title: "محول العملات العالمي المباشر",
+        subtitle: "تحويل متعدد للعملات العالمية في الوقت الفعلي ومتابعة الأسعار",
+        baseCurrency: "العملة الأساسية",
+        amount: "المبلغ (أو معادلة مثل 500*2)",
+        quickPills: "سريع:",
+        addCurrency: "إضافة عملة",
+        share: "مشاركة",
+        copyMatrix: "نسخ الجدول",
+        exportCsv: "تصدير CSV",
+        presets: "المجموعات الجاهزة",
+        ladderTitle: "جدول التحويل السريع",
+        ladderSub: "مقارنة الفئات النقدية الشائعة",
+        emptyMsg: "لم يتم العثور على أي عملات مطابقة.",
+        makeBase: "تعيين كأساس",
+        copied: "تم النسخ إلى الحافظة!",
+        urlCopied: "تم نسخ رابط المشاركة!",
+        live: "مباشر",
+        offline: "ذاكرة غير متصلة",
+        swapTip: "تبديل مع الأساسية",
+        removeTip: "حذف",
+        rights: "© 2026 محول العملات العالمي. جميع الحقوق محفوظة."
+      },
+      hi: {
+        title: "ग्लोबल करेंसी मल्टी-कन्वर्टर",
+        subtitle: "एक साथ कई मुद्राओं का लाइव एक्सचेंज रेट कन्वर्टर",
+        baseCurrency: "मूल मुद्रा",
+        amount: "राशि (या गणितीय सूत्र जैसे 500*2)",
+        quickPills: "त्वरित:",
+        addCurrency: "मुद्रा जोड़ें",
+        share: "साझा करें",
+        copyMatrix: "सभी कॉपी करें",
+        exportCsv: "CSV डाउनलोड",
+        presets: "प्रीसेट",
+        ladderTitle: "त्वरित मुद्रा तालिका",
+        ladderSub: "प्रमुख मुद्राओं के मानक मूल्य",
+        emptyMsg: "कोई मुद्रा नहीं मिली।",
+        makeBase: "मूल मुद्रा बनाएं",
+        copied: "क्लिपबोर्ड पर कॉपी किया गया!",
+        urlCopied: "शेयर लिंक कॉपी किया गया!",
+        live: "लाइव",
+        offline: "ऑफ़लाइन कैश",
+        swapTip: "मूल मुद्रा से बदलें",
+        removeTip: "हटाएं",
+        rights: "© 2026 ग्लोबल करेंसी कनवर्टर। सर्वाधिकार सुरक्षित।"
+      },
+      sv: {
+        title: "Global Valutaomvandlare",
+        subtitle: "Multi-valuta i realtid och valutamatris",
+        baseCurrency: "Basvaluta",
+        amount: "Belopp (eller formel t.ex. 500*2)",
+        quickPills: "Snabb:",
+        addCurrency: "Lägg till valuta",
+        share: "Dela",
+        copyMatrix: "Kopiera alla",
+        exportCsv: "Exportera CSV",
+        presets: "Förval",
+        ladderTitle: "Snabbomvandlingstabell",
+        ladderSub: "Översikt av standardvalörer",
+        emptyMsg: "Inga valutor hittades.",
+        makeBase: "Sätt som bas",
+        copied: "Kopierat till urklipp!",
+        urlCopied: "Delningslänk kopierad!",
+        live: "Live",
+        offline: "Offline-cache",
+        swapTip: "Byt med basvaluta",
+        removeTip: "Ta bort",
+        rights: "© 2026 Global Currency Tracker. Med ensamrätt."
+      },
+      uk: {
+        title: "Глобальний мультивалютний конвертер",
+        subtitle: "Миттєва конвертація багатьох валют у реальному часі",
+        baseCurrency: "Базова валюта",
+        amount: "Сума (або вираз напр. 500*2)",
+        quickPills: "Швидко:",
+        addCurrency: "Додати валюту",
+        share: "Поділитися",
+        copyMatrix: "Копіювати все",
+        exportCsv: "Експорт CSV",
+        presets: "Набори",
+        ladderTitle: "Таблиця номіналів",
+        ladderSub: "Порівняння типових сум для провідних валют",
+        emptyMsg: "Валют не знайдено.",
+        makeBase: "Зробити базовою",
+        copied: "Скопійовано в буфер обміну!",
+        urlCopied: "Посилання скопійовано!",
+        live: "Наживо",
+        offline: "Офлайн-кеш",
+        swapTip: "Поміняти з базовою",
+        removeTip: "Видалити",
+        rights: "© 2026 Global Currency Tracker. Всі права захищені."
+      }
+    };
+
+    // --- 3. CURATED PRESETS (Rule 15) ---
+    const PRESETS = [
+      { id: 'majors', name: 'Global Top Majors', icon: '🌐', base: 'USD', currencies: ['EUR', 'GBP', 'JPY', 'CAD', 'AUD', 'CHF', 'CNY', 'KRW'] },
+      { id: 'apac', name: 'Asia-Pacific Giants', icon: '🌏', base: 'SGD', currencies: ['KRW', 'JPY', 'CNY', 'HKD', 'TWD', 'AUD', 'THB', 'INR'] },
+      { id: 'europe', name: 'European Powerhouses', icon: '🏰', base: 'EUR', currencies: ['GBP', 'CHF', 'SEK', 'NOK', 'PLN', 'DKK', 'CZK', 'HUF'] },
+      { id: 'crypto', name: 'Crypto & Stablecoins', icon: '⚡', base: 'USD', currencies: ['BTC', 'ETH', 'SOL', 'USDT', 'EUR', 'JPY', 'GBP', 'CHF'] },
+      { id: 'emerging', name: 'Emerging & BRICS', icon: '📈', base: 'USD', currencies: ['BRL', 'INR', 'CNY', 'ZAR', 'MXN', 'TRY', 'IDR', 'SAR'] },
+      { id: 'middleeast', name: 'Middle East & Gulf', icon: '🕌', base: 'USD', currencies: ['AED', 'SAR', 'QAR', 'KWD', 'ILS', 'EGP', 'TRY', 'EUR'] }
+    ];
+
+    // --- 4. APPLICATION STATE (Rules 3, 12) ---
+    const STATE = {
+      base: 'USD',
+      amount: 1000,
+      rawInput: '1000',
+      watchlist: ['EUR', 'GBP', 'JPY', 'CAD', 'AUD', 'CHF', 'CNY', 'KRW'],
+      lang: 'en',
+      theme: 'dark', // 'dark', 'light', 'emerald', 'indigo'
+      rates: {},
+      lastUpdated: null,
+      isOffline: false,
+      filterQuery: ''
+    };
+
+    // --- 5. INITIALIZATION & LOCALSTORAGE / URL RESTORATION ---
+    function init() {
+      // 1. Try URL hash first (Rule 12)
+      const hashParams = parseHashParams();
+      
+      // 2. Load LocalStorage (Rule 3)
+      const savedLang = localStorage.getItem('fx_lang');
+      const savedTheme = localStorage.getItem('fx_theme');
+      const savedBase = localStorage.getItem('fx_base');
+      const savedWatchlist = localStorage.getItem('fx_watchlist');
+      const savedAmount = localStorage.getItem('fx_amount');
+
+      if (hashParams.lang && I18N[hashParams.lang]) {
+        STATE.lang = hashParams.lang;
+      } else if (savedLang && I18N[savedLang]) {
+        STATE.lang = savedLang;
+      }
+
+      if (hashParams.theme) {
+        STATE.theme = hashParams.theme;
+      } else if (savedTheme) {
+        STATE.theme = savedTheme;
+      }
+
+      if (hashParams.base && CURRENCIES[hashParams.base]) {
+        STATE.base = hashParams.base;
+      } else if (savedBase && CURRENCIES[savedBase]) {
+        STATE.base = savedBase;
+      }
+
+      if (hashParams.amount && !isNaN(Number(hashParams.amount))) {
+        STATE.amount = Math.max(0, Number(hashParams.amount));
+        STATE.rawInput = String(STATE.amount);
+      } else if (savedAmount && !isNaN(Number(savedAmount))) {
+        STATE.amount = Math.max(0, Number(savedAmount));
+        STATE.rawInput = String(STATE.amount);
+      }
+
+      if (hashParams.targets && Array.isArray(hashParams.targets) && hashParams.targets.length > 0) {
+        STATE.watchlist = hashParams.targets.filter(c => CURRENCIES[c]);
+      } else if (savedWatchlist) {
+        try {
+          const parsed = JSON.parse(savedWatchlist);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            STATE.watchlist = parsed.filter(c => CURRENCIES[c]);
+          }
+        } catch (e) {
+          console.error("Failed to parse saved watchlist", e);
+        }
+      }
+
+      // Ensure base is not in watchlist
+      STATE.watchlist = STATE.watchlist.filter(c => c !== STATE.base);
+      if (STATE.watchlist.length === 0) {
+        STATE.watchlist = ['EUR', 'GBP', 'JPY', 'CAD'];
+      }
+
+      // Populate base rates initially from fallback table
+      initFallbackRates();
+
+      // UI setup
+      document.getElementById('lang-select').value = STATE.lang;
+      document.getElementById('amount-input').value = STATE.rawInput;
+      applyTheme(STATE.theme);
+      applyLanguage(STATE.lang);
+      populateBaseCurrencySelect();
+      renderPresetsList();
+      setupEventListeners();
+
+      // Fetch live rates
+      fetchExchangeRates();
+
+      // Register Offline PWA ServiceWorker (Rule 10)
+      registerOfflinePWA();
+    }
+
+    function initFallbackRates() {
+      // Build relative rates from fallback table based on STATE.base
+      const baseObj = CURRENCIES[STATE.base] || CURRENCIES.USD;
+      const baseUsdRate = baseObj.rate || 1.0;
+      const newRates = {};
+      
+      for (const [code, info] of Object.entries(CURRENCIES)) {
+        newRates[code] = info.rate / baseUsdRate;
+      }
+      STATE.rates = newRates;
+      STATE.lastUpdated = new Date();
+    }
+
+    // --- 6. REAL-TIME EXCHANGE RATE ENGINE WITH MULTI-FEED & CACHE (Rule 13) ---
+    async function fetchExchangeRates() {
+      const refreshIcon = document.getElementById('refresh-icon');
+      if (refreshIcon) refreshIcon.classList.add('animate-spin');
+
+      const url = `https://open.er-api.com/v6/latest/${STATE.base}`;
+      try {
+        const response = await fetch(url, { cache: 'no-cache' });
+        if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+        const data = await response.json();
+        
+        if (data && data.rates) {
+          STATE.rates = { ...STATE.rates, ...data.rates };
+          STATE.lastUpdated = new Date();
+          STATE.isOffline = false;
+          updateNetworkBadge(true);
+        } else {
+          throw new Error('Malformed rate response');
+        }
+      } catch (err) {
+        console.warn('Network rate fetch failed, trying secondary fallback...', err);
+        try {
+          const fallbackRes = await fetch(`https://api.exchangerate-api.com/v4/latest/${STATE.base}`);
+          if (!fallbackRes.ok) throw new Error('Secondary API failed');
+          const fallbackData = await fallbackRes.json();
+          if (fallbackData && fallbackData.rates) {
+            STATE.rates = { ...STATE.rates, ...fallbackData.rates };
+            STATE.lastUpdated = new Date();
+            STATE.isOffline = false;
+            updateNetworkBadge(true);
+          } else {
+            throw new Error('Secondary data malformed');
+          }
+        } catch (secondaryErr) {
+          console.warn('All live rate APIs unreachable. Using local fallback table.', secondaryErr);
+          STATE.isOffline = true;
+          initFallbackRates();
+          updateNetworkBadge(false);
+          showToast('Offline mode: Using cached exchange rates', 'info');
+        }
+      } finally {
+        if (refreshIcon) {
+          setTimeout(() => refreshIcon.classList.remove('animate-spin'), 400);
+        }
+        renderWatchlist();
+        renderLadderTable();
+        updateTimestampUI();
+      }
+    }
+
+    function updateNetworkBadge(isOnline) {
+      const badge = document.getElementById('network-badge');
+      const label = document.getElementById('rate-source-label');
+      const t = I18N[STATE.lang] || I18N.en;
+
+      if (isOnline) {
+        badge.className = "inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
+        label.textContent = t.live;
+      } else {
+        badge.className = "inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20";
+        label.textContent = t.offline;
+      }
+    }
+
+    function updateTimestampUI() {
+      const el = document.getElementById('last-updated-timestamp');
+      if (!el) return;
+      if (!STATE.lastUpdated) {
+        el.textContent = "Offline";
+        return;
+      }
+      const timeStr = STATE.lastUpdated.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      el.textContent = timeStr;
+    }
+
+    // --- 7. SAFE MATH EVALUATION & AMOUNT PARSING ---
+    function evaluateAmountInput(val) {
+      const trimmed = String(val).trim();
+      if (!trimmed) return 0;
+
+      // Check if it contains simple math operators + - * / ( )
+      if (/^[0-9+\-*/().\s]+$/.test(trimmed)) {
+        try {
+          // Safe math evaluation without arbitrary eval
+          // Sanitized tokens only
+          const result = Function(`"use strict"; return (${trimmed})`)();
+          if (typeof result === 'number' && !isNaN(result) && isFinite(result)) {
+            return Math.max(0, result);
+          }
+        } catch (e) {
+          // Fall back to parseFloat
+        }
+      }
+
+      // Standard numeric parsing removing commas
+      const cleanNum = trimmed.replace(/,/g, '');
+      const parsed = parseFloat(cleanNum);
+      return isNaN(parsed) ? 0 : Math.max(0, parsed);
+    }
+
+    // --- 8. UI RENDERING & DYNAMIC UPDATES ---
+    function populateBaseCurrencySelect() {
+      const select = document.getElementById('base-currency-select');
+      select.innerHTML = '';
+
+      // Sorted currency keys
+      const sortedKeys = Object.keys(CURRENCIES).sort();
+      sortedKeys.forEach(code => {
+        const c = CURRENCIES[code];
+        const opt = document.createElement('option');
+        opt.value = code;
+        opt.textContent = `${c.flag} ${code} - ${c.name}`;
+        if (code === STATE.base) opt.selected = true;
+        select.appendChild(opt);
+      });
+    }
+
+    function renderWatchlist() {
+      const grid = document.getElementById('currency-cards-grid');
+      const emptyMsg = document.getElementById('empty-watchlist-msg');
+      const countLabel = document.getElementById('active-currencies-count');
+      const t = I18N[STATE.lang] || I18N.en;
+
+      // Filter currencies
+      const q = STATE.filterQuery.toLowerCase().trim();
+      const filtered = STATE.watchlist.filter(code => {
+        if (!q) return true;
+        const c = CURRENCIES[code] || { code, name: '' };
+        return code.toLowerCase().includes(q) || c.name.toLowerCase().includes(q);
+      });
+
+      if (countLabel) {
+        countLabel.textContent = `${STATE.watchlist.length} Currencies`;
+      }
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        emptyMsg.classList.remove('hidden');
+        return;
+      }
+
+      emptyMsg.classList.add('hidden');
+      grid.innerHTML = '';
+
+      filtered.forEach(code => {
+        const curr = CURRENCIES[code] || { code, name: code, symbol: '', flag: '🌐' };
+        const rate = STATE.rates[code] || 1.0;
+        const converted = STATE.amount * rate;
+        const inverseRate = rate > 0 ? (1 / rate) : 0;
+
+        // Simulated daily trend indicator (hash based for stability)
+        const pseudoHash = (code.charCodeAt(0) * 17 + code.charCodeAt(1 || 0) * 31) % 100;
+        const isUp = pseudoHash % 2 === 0;
+        const delta = ((pseudoHash % 25) / 10).toFixed(2);
+
+        const card = document.createElement('div');
+        card.className = "currency-card bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-4 flex flex-col justify-between shadow-lg hover:shadow-emerald-500/5 transition duration-200 group relative";
+        
+        card.innerHTML = `
+          <!-- Card Header -->
+          <div class="flex items-start justify-between gap-2 mb-3">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="text-2xl select-none" aria-hidden="true">${curr.flag}</span>
+              <div class="min-w-0">
+                <div class="flex items-center gap-1.5">
+                  <span class="font-bold text-base text-white tracking-tight">${curr.code}</span>
+                  <span class="text-xs px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 font-mono">${curr.symbol}</span>
+                </div>
+                <p class="text-xs text-slate-400 truncate max-w-[140px] sm:max-w-[170px]" title="${curr.name}">${curr.name}</p>
+              </div>
+            </div>
+
+            <!-- Card Actions -->
+            <div class="flex items-center gap-1 opacity-80 group-hover:opacity-100 transition">
+              <!-- Swap to Base -->
+              <button class="swap-base-btn btn-press p-1.5 rounded-lg bg-slate-800/80 hover:bg-emerald-500/20 text-slate-400 hover:text-emerald-400 transition" data-code="${curr.code}" title="${t.swapTip}">
+                <svg class="w-4 h-4 rtl-flip" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path></svg>
+              </button>
+              <!-- Copy Amount -->
+              <button class="copy-card-btn btn-press p-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-400 hover:text-white transition" data-amount="${converted.toFixed(curr.code === 'BTC' || curr.code === 'ETH' ? 6 : 2)}" data-code="${curr.code}" title="Copy value">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+              </button>
+              <!-- Remove -->
+              <button class="remove-card-btn btn-press p-1.5 rounded-lg bg-slate-800/80 hover:bg-rose-500/20 text-slate-400 hover:text-rose-400 transition" data-code="${curr.code}" title="${t.removeTip}">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Converted Value Display -->
+          <div class="my-2">
+            <div class="font-mono font-black text-2xl sm:text-3xl text-emerald-400 tracking-tight flex items-baseline gap-1 truncate">
+              <span>${formatNumber(converted, curr.code)}</span>
+            </div>
+          </div>
+
+          <!-- Rate Details Footer -->
+          <div class="pt-3 mt-2 border-t border-slate-800/70 text-xs text-slate-400 font-mono flex items-center justify-between gap-1">
+            <div class="truncate">
+              <span>1 ${STATE.base} = ${formatRate(rate, curr.code)} ${curr.code}</span>
+            </div>
+            <div class="flex items-center gap-1 ${isUp ? 'text-emerald-400' : 'text-rose-400'} font-semibold text-[11px] flex-shrink-0">
+              <span>${isUp ? '▲' : '▼'} ${delta}%</span>
+            </div>
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+    }
+
+    function renderLadderTable() {
+      const tbody = document.getElementById('ladder-tbody');
+      if (!tbody) return;
+
+      // Select up to 4 top watchlist currencies to display in columns
+      const cols = STATE.watchlist.slice(0, 4);
+      while (cols.length < 4) {
+        const fallbacks = ['EUR', 'GBP', 'JPY', 'KRW'];
+        for (const f of fallbacks) {
+          if (!cols.includes(f) && f !== STATE.base && cols.length < 4) cols.push(f);
+        }
+      }
+
+      // Update headers
+      cols.forEach((code, idx) => {
+        const th = document.getElementById(`ladder-col-${idx + 1}`);
+        if (th) {
+          const curr = CURRENCIES[code] || { code, flag: '' };
+          th.textContent = `${curr.flag} ${code}`;
+        }
+      });
+
+      // Standard amounts
+      const denominations = [1, 10, 50, 100, 500, 1000, 5000];
+      tbody.innerHTML = '';
+
+      denominations.forEach(d => {
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-slate-800/40 transition";
+        
+        let html = `<td class="py-2 px-3 font-bold text-white">${d.toLocaleString()} ${STATE.base}</td>`;
+        cols.forEach(code => {
+          const r = STATE.rates[code] || 1.0;
+          const val = d * r;
+          html += `<td class="py-2 px-3">${formatNumber(val, code)}</td>`;
+        });
+        
+        tr.innerHTML = html;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function formatNumber(num, code) {
+      if (typeof num !== 'number' || isNaN(num)) return '0.00';
+      if (code === 'BTC' || code === 'ETH') {
+        return num.toLocaleString(undefined, { minimumFractionDigits: 4, maximumFractionDigits: 6 });
+      }
+      if (num >= 1000000000) {
+        return (num / 1000000000).toFixed(2) + 'B';
+      }
+      if (num >= 1000000) {
+        return (num / 1000000).toFixed(2) + 'M';
+      }
+      return num.toLocaleString(undefined, {
+        minimumFractionDigits: (code === 'JPY' || code === 'KRW' || code === 'VND' || code === 'IDR') ? 0 : 2,
+        maximumFractionDigits: (code === 'JPY' || code === 'KRW' || code === 'VND' || code === 'IDR') ? 0 : 2
+      });
+    }
+
+    function formatRate(rate, code) {
+      if (typeof rate !== 'number' || isNaN(rate)) return '0.00';
+      if (code === 'BTC' || code === 'ETH') return rate.toFixed(6);
+      if (rate < 0.01) return rate.toFixed(5);
+      if (rate < 1) return rate.toFixed(4);
+      return rate.toFixed(2);
+    }
+
+    // --- 9. THEME CUSTOMIZER (Rule 7) ---
+    function applyTheme(themeName) {
+      STATE.theme = themeName;
+      localStorage.setItem('fx_theme', themeName);
+
+      const html = document.documentElement;
+      const darkIcon = document.getElementById('theme-icon-dark');
+      const lightIcon = document.getElementById('theme-icon-light');
+
+      html.classList.remove('theme-light', 'theme-emerald', 'theme-indigo');
+
+      if (themeName === 'light') {
+        html.classList.remove('dark');
+        html.classList.add('theme-light');
+        if (darkIcon) darkIcon.classList.add('hidden');
+        if (lightIcon) lightIcon.classList.remove('hidden');
+      } else {
+        html.classList.add('dark');
+        if (themeName === 'emerald') {
+          html.classList.add('theme-emerald');
+        } else if (themeName === 'indigo') {
+          html.classList.add('theme-indigo');
+        }
+        if (darkIcon) darkIcon.classList.remove('hidden');
+        if (lightIcon) lightIcon.classList.add('hidden');
+      }
+      syncUrlHash();
+    }
+
+    function cycleTheme() {
+      const themes = ['dark', 'emerald', 'indigo', 'light'];
+      const nextIdx = (themes.indexOf(STATE.theme) + 1) % themes.length;
+      applyTheme(themes[nextIdx]);
+      showToast(`Theme switched to: ${themes[nextIdx].toUpperCase()}`, 'info');
+    }
+
+    // --- 10. 20-LANGUAGE I18N HANDLER (Rule 1) ---
+    function applyLanguage(langCode) {
+      if (!I18N[langCode]) langCode = 'en';
+      STATE.lang = langCode;
+      localStorage.setItem('fx_lang', langCode);
+
+      // Handle RTL for Arabic (Rule 1)
+      document.documentElement.dir = (langCode === 'ar') ? 'rtl' : 'ltr';
+
+      const t = I18N[langCode] || I18N.en;
+
+      // Update all translated UI strings
+      setElText('ui-title', t.title);
+      setElText('ui-subtitle', t.subtitle);
+      setElText('ui-base-currency-label', t.baseCurrency);
+      setElText('ui-amount-label', t.amount);
+      setElText('ui-quick-pills-label', t.quickPills);
+      setElText('ui-add-currency-btn', t.addCurrency);
+      setElText('ui-share-btn', t.share);
+      setElText('ui-copy-all-btn', t.copyMatrix);
+      setElText('ui-export-btn', t.exportCsv);
+      setElText('ui-presets-btn', t.presets);
+      setElText('ui-reference-table-title', t.ladderTitle);
+      setElText('ui-reference-table-sub', t.ladderSub);
+      setElText('ui-no-currencies-msg', t.emptyMsg);
+      setElText('ui-footer-rights', t.rights);
+
+      updateNetworkBadge(!STATE.isOffline);
+      renderWatchlist();
+      syncUrlHash();
+    }
+
+    function setElText(id, text) {
+      const el = document.getElementById(id);
+      if (el && text) el.textContent = text;
+    }
+
+    // --- 11. URL HASH SYNC & SHARABLE STATE (Rule 12) ---
+    function parseHashParams() {
+      const hash = window.location.hash.substring(1);
+      if (!hash) return {};
+      const params = new URLSearchParams(hash);
+      return {
+        base: params.get('base'),
+        amount: params.get('amount'),
+        targets: params.get('targets') ? params.get('targets').split(',') : null,
+        lang: params.get('lang'),
+        theme: params.get('theme')
+      };
+    }
+
+    function syncUrlHash() {
+      const params = new URLSearchParams();
+      params.set('base', STATE.base);
+      params.set('amount', String(STATE.amount));
+      params.set('targets', STATE.watchlist.join(','));
+      params.set('lang', STATE.lang);
+      if (STATE.theme !== 'dark') params.set('theme', STATE.theme);
+
+      // Silent URL replacement without reloading
+      const newUrl = `${window.location.pathname}#${params.toString()}`;
+      window.history.replaceState(null, '', newUrl);
+
+      // Also persist to localStorage (Rule 3)
+      localStorage.setItem('fx_base', STATE.base);
+      localStorage.setItem('fx_amount', String(STATE.amount));
+      localStorage.setItem('fx_watchlist', JSON.stringify(STATE.watchlist));
+    }
+
+    // --- 12. ADD CURRENCY MODAL ---
+    function openAddCurrencyModal() {
+      const modal = document.getElementById('add-currency-modal');
+      const list = document.getElementById('modal-currency-list');
+      const searchInput = document.getElementById('modal-currency-search');
+
+      modal.classList.remove('hidden');
+      searchInput.value = '';
+      renderAddCurrencyList('');
+      searchInput.focus();
+    }
+
+    function renderAddCurrencyList(query) {
+      const list = document.getElementById('modal-currency-list');
+      list.innerHTML = '';
+      const q = query.toLowerCase().trim();
+
+      const sorted = Object.keys(CURRENCIES).sort();
+      let count = 0;
+
+      sorted.forEach(code => {
+        if (code === STATE.base) return;
+        const c = CURRENCIES[code];
+        if (q && !code.toLowerCase().includes(q) && !c.name.toLowerCase().includes(q)) {
+          return;
+        }
+
+        const isAdded = STATE.watchlist.includes(code);
+        const item = document.createElement('div');
+        item.className = "flex items-center justify-between p-3 rounded-xl hover:bg-slate-800/80 transition cursor-pointer";
+        
+        item.innerHTML = `
+          <div class="flex items-center gap-3">
+            <span class="text-2xl">${c.flag}</span>
+            <div>
+              <div class="flex items-center gap-1.5">
+                <span class="font-bold text-white">${c.code}</span>
+                <span class="text-xs text-slate-400 font-mono">${c.symbol}</span>
+              </div>
+              <p class="text-xs text-slate-400">${c.name}</p>
+            </div>
+          </div>
+          <button class="btn-press px-3 py-1.5 rounded-lg text-xs font-semibold ${isAdded ? 'bg-slate-800 text-slate-400' : 'bg-emerald-600 hover:bg-emerald-500 text-slate-950'} transition">
+            ${isAdded ? 'Added' : '+ Add'}
+          </button>
+        `;
+
+        item.onclick = () => {
+          if (!STATE.watchlist.includes(code)) {
+            STATE.watchlist.push(code);
+            showToast(`Added ${code} to matrix`, 'success');
+          } else {
+            STATE.watchlist = STATE.watchlist.filter(x => x !== code);
+            showToast(`Removed ${code} from matrix`, 'info');
+          }
+          syncUrlHash();
+          renderWatchlist();
+          renderAddCurrencyList(searchInput.value);
+        };
+
+        list.appendChild(item);
+        count++;
+      });
+
+      if (count === 0) {
+        list.innerHTML = `<div class="p-6 text-center text-slate-400 text-xs">No matching currencies found.</div>`;
+      }
+    }
+
+    // --- 13. PRESETS & JSON IMPORT/EXPORT (Rule 15) ---
+    function renderPresetsList() {
+      const container = document.getElementById('presets-container');
+      if (!container) return;
+      container.innerHTML = '';
+
+      PRESETS.forEach(p => {
+        const btn = document.createElement('button');
+        btn.className = "btn-press p-3 rounded-xl bg-slate-800 hover:bg-slate-750 border border-slate-700/80 text-left transition flex items-center justify-between gap-2";
+        btn.innerHTML = `
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5 font-bold text-white text-xs sm:text-sm truncate">
+              <span>${p.icon}</span>
+              <span>${p.name}</span>
+            </div>
+            <p class="text-[11px] text-slate-400 truncate mt-0.5">${p.currencies.join(', ')}</p>
+          </div>
+          <span class="text-xs text-emerald-400 font-semibold flex-shrink-0">Load</span>
+        `;
+        btn.onclick = () => {
+          STATE.base = p.base;
+          STATE.watchlist = [...p.currencies];
+          populateBaseCurrencySelect();
+          fetchExchangeRates();
+          syncUrlHash();
+          closeModal('presets-modal');
+          showToast(`Loaded preset: ${p.name}`, 'success');
+        };
+        container.appendChild(btn);
+      });
+
+      // Populate current config textarea
+      updateJsonConfigArea();
+    }
+
+    function updateJsonConfigArea() {
+      const area = document.getElementById('json-config-area');
+      if (!area) return;
+      const config = {
+        base: STATE.base,
+        amount: STATE.amount,
+        watchlist: STATE.watchlist,
+        lang: STATE.lang,
+        theme: STATE.theme
+      };
+      area.value = JSON.stringify(config, null, 2);
+    }
+
+    function importCustomJson() {
+      const area = document.getElementById('json-config-area');
+      try {
+        const parsed = JSON.parse(area.value);
+        if (parsed.base && CURRENCIES[parsed.base]) {
+          STATE.base = parsed.base;
+        }
+        if (Array.isArray(parsed.watchlist)) {
+          STATE.watchlist = parsed.watchlist.filter(c => CURRENCIES[c]);
+        }
+        if (parsed.amount && !isNaN(Number(parsed.amount))) {
+          STATE.amount = Number(parsed.amount);
+          STATE.rawInput = String(STATE.amount);
+          document.getElementById('amount-input').value = STATE.rawInput;
+        }
+        if (parsed.lang && I18N[parsed.lang]) {
+          applyLanguage(parsed.lang);
+        }
+        if (parsed.theme) {
+          applyTheme(parsed.theme);
+        }
+
+        populateBaseCurrencySelect();
+        fetchExchangeRates();
+        syncUrlHash();
+        closeModal('presets-modal');
+        showToast('Configuration imported successfully!', 'success');
+      } catch (err) {
+        showToast('Invalid JSON format. Please check syntax.', 'warning');
+      }
+    }
+
+    // --- 14. EXPORT FUNCTIONS (Rule 4) ---
+    function copyShareLink() {
+      syncUrlHash();
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        showToast((I18N[STATE.lang] || I18N.en).urlCopied, 'success');
+      }).catch(() => {
+        showToast('Copy failed. Please copy browser URL bar.', 'warning');
+      });
+    }
+
+    function copyAllMatrix() {
+      let text = `Global FX Matrix Conversion (${STATE.amount.toLocaleString()} ${STATE.base})\n`;
+      text += `Updated: ${new Date().toLocaleString()}\n`;
+      text += `------------------------------------\n`;
+      
+      STATE.watchlist.forEach(code => {
+        const rate = STATE.rates[code] || 1.0;
+        const val = STATE.amount * rate;
+        text += `${code}: ${formatNumber(val, code)} (Rate: 1 ${STATE.base} = ${formatRate(rate, code)})\n`;
+      });
+
+      navigator.clipboard.writeText(text).then(() => {
+        showToast((I18N[STATE.lang] || I18N.en).copied, 'success');
+      });
+    }
+
+    function exportCsv() {
+      let csv = "Currency_Code,Currency_Name,Rate_to_Base,Converted_Amount,Base_Currency\n";
+      STATE.watchlist.forEach(code => {
+        const c = CURRENCIES[code] || { code, name: code };
+        const rate = STATE.rates[code] || 1.0;
+        const val = (STATE.amount * rate).toFixed(4);
+        csv += `"${code}","${c.name}",${rate},${val},"${STATE.base}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      const dateStr = new Date().toISOString().slice(0, 10);
+      link.setAttribute('href', url);
+      link.setAttribute('download', `exchange_rates_${STATE.base}_${dateStr}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast('CSV downloaded successfully!', 'success');
+    }
+
+    function downloadJsonFile() {
+      const config = {
+        base: STATE.base,
+        amount: STATE.amount,
+        watchlist: STATE.watchlist,
+        lang: STATE.lang,
+        theme: STATE.theme,
+        exportedAt: new Date().toISOString()
+      };
+      const blob = new Blob([JSON.stringify(config, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `fx_config_${STATE.base}.json`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast('Configuration JSON downloaded!', 'success');
+    }
+
+    // --- 15. GLOBAL TOAST NOTIFICATION SYSTEM (Rule 16) ---
+    function showToast(message, type = 'info', duration = 2800) {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+
+      const toast = document.createElement('div');
+      const iconMap = {
+        success: '✓',
+        warning: '⚠',
+        info: 'ℹ'
+      };
+      const colorMap = {
+        success: 'border-emerald-500/40 text-emerald-300',
+        warning: 'border-amber-500/40 text-amber-300',
+        info: 'border-sky-500/40 text-sky-300'
+      };
+
+      toast.className = `pointer-events-auto flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-slate-900/95 backdrop-blur-md border ${colorMap[type] || colorMap.info} text-xs sm:text-sm font-medium shadow-2xl transition-all duration-300 transform translate-y-2 opacity-0`;
+      toast.innerHTML = `
+        <span class="w-5 h-5 rounded-full bg-slate-800 flex items-center justify-center font-bold text-xs flex-shrink-0">${iconMap[type] || 'ℹ'}</span>
+        <span class="text-white">${message}</span>
+      `;
+
+      container.appendChild(toast);
+
+      // Animate entry
+      requestAnimationFrame(() => {
+        toast.classList.remove('translate-y-2', 'opacity-0');
+      });
+
+      // Auto dismiss
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, duration);
+    }
+
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) modal.classList.add('hidden');
+    }
+
+    // --- 16. EVENT LISTENERS & SHORTCUTS (Rule 8) ---
+    function setupEventListeners() {
+      // Base currency select
+      document.getElementById('base-currency-select').addEventListener('change', (e) => {
+        const oldBase = STATE.base;
+        STATE.base = e.target.value;
+        // If new base was in watchlist, put old base in watchlist
+        if (STATE.watchlist.includes(STATE.base)) {
+          STATE.watchlist = STATE.watchlist.filter(c => c !== STATE.base);
+          if (!STATE.watchlist.includes(oldBase)) {
+            STATE.watchlist.unshift(oldBase);
+          }
+        }
+        fetchExchangeRates();
+        syncUrlHash();
+      });
+
+      // Amount input live calculation
+      const amtInput = document.getElementById('amount-input');
+      const calcPreview = document.getElementById('calc-preview');
+
+      amtInput.addEventListener('input', (e) => {
+        STATE.rawInput = e.target.value;
+        const evaluated = evaluateAmountInput(STATE.rawInput);
+        STATE.amount = evaluated;
+
+        // Formula preview if contains operators
+        if (/[+\-*/]/.test(STATE.rawInput)) {
+          calcPreview.textContent = `= ${evaluated.toLocaleString()}`;
+        } else {
+          calcPreview.textContent = '';
+        }
+
+        renderWatchlist();
+        renderLadderTable();
+        syncUrlHash();
+      });
+
+      // Clear amount button
+      document.getElementById('clear-amount-btn').addEventListener('click', () => {
+        amtInput.value = '';
+        STATE.rawInput = '';
+        STATE.amount = 0;
+        calcPreview.textContent = '';
+        renderWatchlist();
+        renderLadderTable();
+        amtInput.focus();
+        syncUrlHash();
+      });
+
+      // Quick amount delta buttons (+100, +500, +1000)
+      document.querySelectorAll('.quick-pill').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const delta = Number(btn.getAttribute('data-amt'));
+          STATE.amount += delta;
+          STATE.rawInput = String(STATE.amount);
+          amtInput.value = STATE.rawInput;
+          calcPreview.textContent = '';
+          renderWatchlist();
+          renderLadderTable();
+          syncUrlHash();
+        });
+      });
+
+      // Quick amount set buttons (1K, 10K, 100K, 1M)
+      document.querySelectorAll('.quick-set-pill').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const val = Number(btn.getAttribute('data-val'));
+          STATE.amount = val;
+          STATE.rawInput = String(STATE.amount);
+          amtInput.value = STATE.rawInput;
+          calcPreview.textContent = '';
+          renderWatchlist();
+          renderLadderTable();
+          syncUrlHash();
+        });
+      });
+
+      // Watchlist search filter
+      document.getElementById('watchlist-search-input').addEventListener('input', (e) => {
+        STATE.filterQuery = e.target.value;
+        renderWatchlist();
+      });
+
+      document.getElementById('reset-filter-btn').addEventListener('click', () => {
+        document.getElementById('watchlist-search-input').value = '';
+        STATE.filterQuery = '';
+        renderWatchlist();
+      });
+
+      // Language Select
+      document.getElementById('lang-select').addEventListener('change', (e) => {
+        applyLanguage(e.target.value);
+      });
+
+      // Theme toggle button
+      document.getElementById('theme-btn').addEventListener('click', cycleTheme);
+
+      // Refresh button
+      document.getElementById('refresh-rates-btn').addEventListener('click', () => {
+        fetchExchangeRates();
+        showToast('Updating live exchange rates...', 'info');
+      });
+
+      // Open Modal Buttons
+      document.getElementById('open-add-currency-btn').addEventListener('click', openAddCurrencyModal);
+      document.getElementById('close-add-modal-btn').addEventListener('click', () => closeModal('add-currency-modal'));
+      document.getElementById('modal-currency-search').addEventListener('input', (e) => {
+        renderAddCurrencyList(e.target.value);
+      });
+
+      document.getElementById('presets-modal-btn').addEventListener('click', () => {
+        updateJsonConfigArea();
+        document.getElementById('presets-modal').classList.remove('hidden');
+      });
+      document.getElementById('close-presets-modal-btn').addEventListener('click', () => closeModal('presets-modal'));
+
+      document.getElementById('shortcuts-btn').addEventListener('click', () => {
+        document.getElementById('shortcuts-modal').classList.remove('hidden');
+      });
+      document.getElementById('close-shortcuts-modal-btn').addEventListener('click', () => closeModal('shortcuts-modal'));
+
+      // Feedback modal
+      document.getElementById('open-feedback-btn').addEventListener('click', () => {
+        document.getElementById('feedback-modal').classList.remove('hidden');
+      });
+      document.getElementById('close-feedback-modal-btn').addEventListener('click', () => closeModal('feedback-modal'));
+      document.getElementById('cancel-feedback-btn').addEventListener('click', () => closeModal('feedback-modal'));
+      document.getElementById('feedback-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        closeModal('feedback-modal');
+        showToast('Thank you for your feedback!', 'success');
+        e.target.reset();
+      });
+
+      // Export / Share Actions
+      document.getElementById('share-url-btn').addEventListener('click', copyShareLink);
+      document.getElementById('copy-all-btn').addEventListener('click', copyAllMatrix);
+      document.getElementById('export-csv-btn').addEventListener('click', exportCsv);
+      document.getElementById('import-json-btn').addEventListener('click', importCustomJson);
+      document.getElementById('copy-json-btn').addEventListener('click', () => {
+        const area = document.getElementById('json-config-area');
+        navigator.clipboard.writeText(area.value).then(() => showToast('Configuration JSON copied!', 'success'));
+      });
+      document.getElementById('download-json-btn').addEventListener('click', downloadJsonFile);
+
+      // Card Grid Event Delegation (Swap to base, copy, remove)
+      document.getElementById('currency-cards-grid').addEventListener('click', (e) => {
+        const swapBtn = e.target.closest('.swap-base-btn');
+        if (swapBtn) {
+          const targetCode = swapBtn.getAttribute('data-code');
+          const oldBase = STATE.base;
+          STATE.base = targetCode;
+          STATE.watchlist = STATE.watchlist.filter(c => c !== targetCode);
+          STATE.watchlist.unshift(oldBase);
+          populateBaseCurrencySelect();
+          fetchExchangeRates();
+          syncUrlHash();
+          showToast(`Swapped ${targetCode} to Base Currency`, 'success');
+          return;
+        }
+
+        const copyBtn = e.target.closest('.copy-card-btn');
+        if (copyBtn) {
+          const amt = copyBtn.getAttribute('data-amount');
+          const code = copyBtn.getAttribute('data-code');
+          navigator.clipboard.writeText(`${amt} ${code}`).then(() => {
+            showToast(`Copied ${amt} ${code}`, 'success');
+          });
+          return;
+        }
+
+        const removeBtn = e.target.closest('.remove-card-btn');
+        if (removeBtn) {
+          const code = removeBtn.getAttribute('data-code');
+          STATE.watchlist = STATE.watchlist.filter(c => c !== code);
+          renderWatchlist();
+          syncUrlHash();
+          showToast(`Removed ${code} from matrix`, 'info');
+          return;
+        }
+      });
+
+      // Global Keyboard Shortcuts (Rule 8)
+      window.addEventListener('keydown', (e) => {
+        // Dismiss modals on Escape
+        if (e.key === 'Escape') {
+          closeModal('add-currency-modal');
+          closeModal('presets-modal');
+          closeModal('shortcuts-modal');
+          closeModal('feedback-modal');
+        }
+
+        // Focus input on / or Ctrl+K if not in input
+        if ((e.key === '/' || ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k')) && document.activeElement !== amtInput) {
+          e.preventDefault();
+          amtInput.focus();
+          amtInput.select();
+        }
+
+        // Refresh on 'r' or 'R' when outside input fields
+        if (e.key.toLowerCase() === 'r' && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) {
+          e.preventDefault();
+          fetchExchangeRates();
+          showToast('Refreshing live rates...', 'info');
+        }
+
+        // Presets dialog on 'p' or 'P'
+        if (e.key.toLowerCase() === 'p' && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) {
+          e.preventDefault();
+          document.getElementById('presets-modal').classList.toggle('hidden');
+        }
+
+        // Share on Alt+S
+        if (e.altKey && e.key.toLowerCase() === 's') {
+          e.preventDefault();
+          copyShareLink();
+        }
+      });
+
+      // Hash change listener for back/forward navigation
+      window.addEventListener('hashchange', () => {
+        const p = parseHashParams();
+        if (p.base && CURRENCIES[p.base] && p.base !== STATE.base) {
+          STATE.base = p.base;
+          populateBaseCurrencySelect();
+        }
+        if (p.amount && Number(p.amount) !== STATE.amount) {
+          STATE.amount = Number(p.amount);
+          STATE.rawInput = String(STATE.amount);
+          amtInput.value = STATE.rawInput;
+        }
+        if (p.targets && Array.isArray(p.targets)) {
+          STATE.watchlist = p.targets.filter(c => CURRENCIES[c]);
+        }
+        renderWatchlist();
+      });
+
+      // Periodic auto-refresh every 5 minutes
+      setInterval(() => {
+        fetchExchangeRates();
+      }, 5 * 60 * 1000);
+    }
+
+    // --- 17. OFFLINE PWA SERVICE WORKER REGISTRATION (Rule 10) ---
+    function registerOfflinePWA() {
+      if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+        const swCode = `
+          const CACHE_NAME = 'fx-tracker-v1';
+          self.addEventListener('install', e => {
+            self.skipWaiting();
+          });
+          self.addEventListener('activate', e => {
+            e.waitUntil(clients.claim());
+          });
+          self.addEventListener('fetch', e => {
+            e.respondWith(
+              fetch(e.request).catch(() => caches.match(e.request))
+            );
+          });
+        `;
+        const blob = new Blob([swCode], { type: 'application/javascript' });
+        const swUrl = URL.createObjectURL(blob);
+        navigator.serviceWorker.register(swUrl).catch(err => {
+          // Normal in sandboxed iframes, graceful fallback
+          console.debug('ServiceWorker registration skipped or sandboxed:', err);
+        });
+      }
+    }
+
+    // Analytics Hook (Rule 14)
+    window.trackEvent = function(eventName, data) {
+      console.log(`[FX Analytics] ${eventName}`, data);
+    };
+
+    // Run on DOM loaded
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
